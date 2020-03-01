@@ -1,0 +1,17 @@
+
+.DS_Store
+
+.idea/
+
+*.lock
+
+aggregator/vendor
+
+*.cache
+
+*.class
+
+spark-hashtags/project/target/
+spark-hashtags/target/streams/test/managedClasspath/_global/streams/
+
+spark-hashtags/target/

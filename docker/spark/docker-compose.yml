@@ -1,0 +1,31 @@
+version: "3.3"
+services:
+  spark-master:
+    image: azer0s/spark:latest
+    container_name: spark-master
+    hostname: spark-master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    networks:
+      - spark-network
+    volumes: 
+      - $HOME/containers/spark:/data
+    environment:
+      SPARK_LOCAL_IP: spark-master
+      SPARK_MASTER_PORT: 7077
+      SPARK_MASTER_WEBUI_PORT: 8080
+    command: ["/bin/sh", "start_master.sh"]
+  spark-worker:
+    image: azer0s/spark:latest
+    depends_on:
+      - spark-master
+    networks:
+      - spark-network
+    environment:
+      SPARK_MASTER: spark://spark-master:7077
+    command: ["/bin/sh", "start_worker.sh"]
+networks:
+  spark-network:
+    external:
+      name: spark-network
